@@ -7,14 +7,14 @@ window_size = sprite_size * sprite_nb
 
 # window's appearance
 window_title = "Help MacGyver to escape"
-window_icone = "venv/ressources/MacGyver.png"
+window_icone = "ressources/MacGyver.png"
 
 # differents images
-needle_img = "venv/ressources/aiguille.png"
-ether_img = "venv/ressources/ether.png"
-plastic_tube_img = "venv/ressources/tube_plastique.png"
-syringhe_img = "venv/ressources/seringue.png"
-macGyver_img = "venv/ressources/MacGyver.png"
-guardian_img = "venv/ressources/Gardien.png"
-floor_img = "venv/ressources/floor.png"
-
+needle_img = "ressources/needle.png"
+ether_img = "ressources/ether.png"
+plastic_tube_img = "ressources/plastic_tube.png"
+syringhe_img = "ressources/syringhe.png"
+macGyver_img = "ressources/macGyver.png"
+guardian_img = "ressources/Gardian.png"
+floor_img = "ressources/floor.png"
+death_img = "ressources/rip.png"
