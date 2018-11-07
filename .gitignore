@@ -1,3 +1,4 @@
 .vscode/
 pipenv/
+venv/
 .idea/

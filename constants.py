@@ -10,6 +10,7 @@ window_title = "Help MacGyver to escape"
 window_icone = "ressources/MacGyver.png"
 
 # differents images
+home_page = "ressources/homeMG.jpg"
 needle_img = "ressources/needle.png"
 ether_img = "ressources/ether.png"
 plastic_tube_img = "ressources/plastic_tube.png"
