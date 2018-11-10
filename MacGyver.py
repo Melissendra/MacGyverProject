@@ -43,6 +43,12 @@ class MacGyver():
                     self.case_y -= 1
                     self.y = self.case_y * sprite_size
 
+        if direction == "bottom":
+            if self.case_y < sprite_nb - 1:
+                if self.mazze_structurz[self.case_y + 1][self.case_x] != "m":
+                    self.case_y += 1
+                    self.y = self.case_y * sprite_size
+
 
 
 
