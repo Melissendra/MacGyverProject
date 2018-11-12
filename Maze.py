@@ -33,8 +33,8 @@ while True:
     # refresh
     pygame.display.flip()
 
-    carry_on_game = 1
-    carry_on_home =1
+    carry_on_game = True
+    carry_on_home =True
 
     # Welcome loop
     while carry_on_home:
@@ -42,18 +42,19 @@ while True:
 
         sys_font = pygame.font.SysFont("Arial", 24)
         welcome_text = sys_font.render("Welcome to MacGyver's Maze Game !", 0, (58,252,139))
-        window.blit(welcome_text, (100,100))
+        window.blit(welcome_text, (15,70))
 
         for event in pygame.event.get():
             # For leaving the game
-            if event.type == QUIT or event.type == KEYDOWN and event.type == K_ESCAPE:
+            if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                pygame.quit()
                sys.exit()
                # Play variable
                play = 0
+
             
             elif event.type == KEYDOWN:
-                if event.key == :
+                if event.key == K_RETURN:
                     carry_on_home = False
                     play = "maze_draw1.txt"
 

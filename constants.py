@@ -7,7 +7,7 @@ window_size = sprite_size * sprite_nb
 
 # window's appearance
 window_title = "Help MacGyver to escape"
-window_icone = "ressources/MacGyver.png"
+window_icone = "ressources/macGyver.png"
 
 # differents images
 home_page = "ressources/homeMG.jpg"

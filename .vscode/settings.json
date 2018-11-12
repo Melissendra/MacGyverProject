@@ -1,5 +1,7 @@
 {
-    "python.pythonPath": "/Users/gaellelefeuvre/.local/share/virtualenvs/MacGyverProject-6oQ2b7wq/bin/python",
+    "python.pythonPath": "/home/melissendra/.local/share/virtualenvs/MacGyverProject-BZCzfeiU/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.jediEnabled": false,
     
 }
 
