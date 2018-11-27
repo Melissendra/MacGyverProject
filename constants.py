@@ -1,3 +1,4 @@
+
 """Games' constants"""
 
 # Window properties
@@ -20,6 +21,8 @@ guardian_img = "resources/gardian.png"
 floor_img = "resources/floor.png"
 death_img = "resources/rip.png"
 
-# colors used in the code
-before_clicked = (58, 252, 139)
-after_clicked = (41, 163, 102)
+# colors constant
+light_green = (58, 252, 139)
+darker_green = (41, 163, 102)
+black = (0, 0, 0)
+red = (250, 0, 0)
