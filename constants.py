@@ -1,6 +1,9 @@
 
 """Games' constants"""
 
+# -tc- utilise des identifiants en majurscules pour des constantes
+# -tc- exemples: SPRITE_SIZE, WINDOW_SIZE, HOME_PAGE
+
 # Window properties
 sprite_size = 32
 sprite_nb = 15
