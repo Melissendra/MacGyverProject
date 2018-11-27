@@ -1,5 +1,6 @@
 import pygame
 
+# -tc- de manière générale, éviter les imports de ce type
 from pygame.locals import *
 
 from constants import *
@@ -8,7 +9,7 @@ from constants import *
 
 """Creation of the maze"""
 
-
+# -tc- ajouter des docstrings à chaque module, classe, méthode, fonction
 class Maze:
 
     def __init__(self):
@@ -37,7 +38,9 @@ class Maze:
 
         pygame.display.flip()
 
+    # -tc- éventuellement, le bouton peut être une classe à part
     def play_button(self):
+        # -tc- D'où vient before_clicked? C'est pour cela qu'il faut éviter: les from module import *
         play_b = pygame.draw.rect(self.window, before_clicked, [190, 430, 100, 40], 5)
         # pos_play_b = 190, 430
         # play_b.fill(before_clicked)
