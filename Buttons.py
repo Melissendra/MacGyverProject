@@ -17,10 +17,11 @@ class ClickableButton:
 
     # détection if the mouse is over the button
     def is_mouse_over(self):
-        # detect the posistion of the mouse
-        cur = pygame.mouse.get_pos()
 
-        if self.rect.left < cur[0] < self.rect.right and self.rect.top < cur[1] < self.rect.bottom:
+        # detect the posistion of the mouse
+        cursor = pygame.mouse.get_pos()
+
+        if self.rect.left < cursor[0] < self.rect.right and self.rect.top < cursor[1] < self.rect.bottom:
             return True
         else:
             return False
@@ -29,7 +30,10 @@ class ClickableButton:
         pass
 
     def is_left_mouse_down(self):
-        return self.has_clicked
+        if pygame.mouse.get_pressed()[0] == 1:
+            return True
+        else:
+            return False
 
     def do_left_mouse_down(self):
         pass
@@ -39,10 +43,10 @@ class ClickableButton:
         mouse = pygame.mouse.get_pressed()
 
         if self.is_mouse_over():
-            if mouse[0] and self.has_clicked:
+            if mouse[0] and self.has_clicked == False:
                 self.has_clicked = True
                 return True
-        if not mouse[0] and not self.has_clicked:
+        if mouse[0] == False and self.has_clicked == True:
             self.has_clicked = False
 
         return False
@@ -63,22 +67,22 @@ class ClickableButton:
 
 class PlayButton(ClickableButton):
     def __init__(self, pos, size, color, text):
-        ClickableButton.__init__(self, pos, size)
+        super().__init__(pos, size)
 
         self.color = color
         self.image = pygame.Surface(size)
         self.image.fill(self.color)
         self.font_button = pygame.font.Font("resources/Arcon-Regular.otf", 24)
-        self.text = self.font_button.render(text, 0, black)
+        self.text = self.font_button.render(text, 0, BLACK)
 
     def do_mouse_over(self):
         over = pygame.Surface(self.rect.size)
         over.set_alpha(60)
-        over.fill(black)
+        over.fill(BLACK)
         self.image.blit(over, (0, 0))
 
     def do_left_mouse_down(self):
-        self.image.fill(red)
+        self.image.fill(RED)
 
     def do_click(self):
         print("You clicked a button")
@@ -90,8 +94,7 @@ class PlayButton(ClickableButton):
     def update(self, window):
         self.image.fill(self.color)
 
-        ClickableButton.update(self, window)
+        super().update(window)
 
         self.draw(window)
-
 

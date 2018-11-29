@@ -1,7 +1,7 @@
 import pygame
 
-from pygame.locals import *
-from constants import *
+from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
+import constants as c
 from Buttons import PlayButton
 
 
@@ -13,27 +13,28 @@ class Game:
     def __init__(self):
         pygame.init()
 
+    """  Welcome Page creation which contain a welcoming sentence and button to attain the game."""
     def home_page(self):
-        self.window = pygame.display.set_mode((window_size, window_size))
+        self.window = pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE))
         rect = self.window.get_rect()
         
-        play_b = PlayButton((rect.centerx, rect.centery + 210), (100, 40), light_green, "Play")
+        play_b = PlayButton((rect.centerx, rect.centery + 210), (100, 40), c.LIGHT_GREEN, "Play")
 
         # Window's icon
-        icon = pygame.image.load(window_icon)
+        icon = pygame.image.load(c.WINDOW_ICON)
         pygame.display.set_icon(icon)
 
         # Title
-        pygame.display.set_caption(window_title)
+        pygame.display.set_caption(c.WINDOW_TITLE)
 
         # opening of the home page
         pygame.time.Clock().tick(30)
-        home = pygame.image.load(home_page).convert()
+        home = pygame.image.load(c.HOME_PAGE).convert()
         self.window.blit(home, (0, 0))
 
         # Welcome sentence
         font = pygame.font.Font("resources/Arcon-Regular.otf", 30)
-        welcome_text = font.render("Welcome to MacGyver's Maze !", 0,light_green)
+        welcome_text = font.render("Welcome to MacGyver's Maze !", 0, c.LIGHT_GREEN)
         pos_welcome_txt = welcome_text.get_rect()
         pos_welcome_txt.center = self.window.get_rect().center
         pos_welcome_txt.y -= 200
@@ -43,16 +44,18 @@ class Game:
 
         pygame.display.flip()
 
-    # principal loop
+    """ The principal loop """
     def run(self):
-        # Window initialization
-        
+
         running = True
         while running:
+            print(pygame.mouse.get_pressed())
+
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                     running = False
-        
+
+            # Window initialization
             self.home_page()
 
             pygame.display.flip()

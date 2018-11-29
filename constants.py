@@ -2,27 +2,27 @@
 """Games' constants"""
 
 # Window properties
-sprite_size = 32
-sprite_nb = 15
-window_size = sprite_size * sprite_nb
+SPRITE_SIZE = 32
+SPRITE_NB = 15
+WINDOW_SIZE = SPRITE_SIZE * SPRITE_NB
 
 # window's appearance
-window_title = "Help MacGyver to escape"
-window_icon = "resources/macGyver.png"
+WINDOW_TITLE = "Help MacGyver to escape"
+WINDOW_ICON = "resources/macgyver.png"
 
 # differents images
-home_page = "resources/explosion.png"
-needle_img = "resources/needle.png"
-ether_img = "resources/ether.png"
-plastic_tube_img = "resources/plastic_tube.png"
-syringe_img = "resources/syringe.png"
-macGyver_img = "resources/macGyver.png"
-guardian_img = "resources/gardian.png"
-floor_img = "resources/floor.png"
-death_img = "resources/rip.png"
+HOME_PAGE = "resources/explosion.png"
+NEEDLE_IMG = "resources/needle.png"
+ETHER_IMG = "resources/ether.png"
+PLASTIC_TUB_IMG = "resources/plastic_tube.png"
+SYRINGE_IMG = "resources/syringe.png"
+MACGYVER_IMG = "resources/macGyver.png"
+GUARDIAN_IMG = "resources/gardian.png"
+FLOOR_IMG = "resources/floor.png"
+DEATH_IMG = "resources/rip.png"
 
 # colors constant
-light_green = (58, 252, 139)
-darker_green = (41, 163, 102)
-black = (0, 0, 0)
-red = (250, 0, 0)
+LIGHT_GREEN = (58, 252, 139)
+DARKER_GREEN = (41, 163, 102)
+BLACK = (0, 0, 0)
+RED = (250, 0, 0)
