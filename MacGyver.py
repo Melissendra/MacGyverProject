@@ -1,2 +1,0 @@
-class Macgyver:
-    pass    

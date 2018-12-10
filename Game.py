@@ -18,7 +18,7 @@ class Game:
         self.window = pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE))
         rect = self.window.get_rect()
         
-        play_b = PlayButton((rect.centerx, rect.centery + 210), (100, 40), c.LIGHT_GREEN, "Play")
+        play_b = PlayButton((rect.centerx, rect.centery + 330), (100, 40), c.LIGHT_GREEN, "Play")
 
         # Window's icon
         icon = pygame.image.load(c.WINDOW_ICON)
@@ -37,7 +37,7 @@ class Game:
         welcome_text = font.render("Welcome to MacGyver's Maze !", 0, c.DARKER_GREEN)
         pos_welcome_txt = welcome_text.get_rect()
         pos_welcome_txt.center = self.window.get_rect().center
-        pos_welcome_txt.y -= 200
+        pos_welcome_txt.y -= 330
         self.window.blit(welcome_text, pos_welcome_txt)
 
         play_b.update(self.window)

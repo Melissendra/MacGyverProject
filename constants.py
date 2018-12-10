@@ -2,7 +2,7 @@
 """Games' constants"""
 
 # Window properties
-SPRITE_SIZE = 32
+SPRITE_SIZE = 50
 SPRITE_NB = 15
 WINDOW_SIZE = SPRITE_SIZE * SPRITE_NB
 
@@ -12,12 +12,15 @@ WINDOW_ICON = "resources/macgyver.png"
 
 # differents images
 HOME_PAGE = "resources/explosion.png"
+
 NEEDLE_IMG = "resources/needle.png"
 ETHER_IMG = "resources/ether.png"
 PLASTIC_TUB_IMG = "resources/plastic_tube.png"
 SYRINGE_IMG = "resources/syringe.png"
-MACGYVER_IMG = "resources/macgyver.png"
-GUARDIAN_IMG = "resources/gardian.png"
+MACGYVER_RIGHT = "resources/mac_right.png"
+MACGYVER_LEFT = "resources/mac_left.png"
+MACGYVER_UP = "resources/mac_up.png"
+MACGYVER_DOWN = "resources/mac_up.png"
 FLOOR_IMG = "resources/floor.png"
 DEATH_IMG = "resources/rip.png"
 WALL_IMG = "resources/wall.png"

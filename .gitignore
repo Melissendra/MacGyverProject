@@ -2,3 +2,6 @@
 .idea/
 pipenv/
 venv/
+.pyc/
+.__pycache__/
+
