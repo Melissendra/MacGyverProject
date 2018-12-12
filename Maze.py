@@ -1,5 +1,6 @@
 import constants as c
 import Characters
+
 """ Creation of the maze structure """
 
 
@@ -13,8 +14,10 @@ class Maze(object):
         self._open_path = set()
         self._start = None
         self._arrival = None
-        self.mac = Characters()
-        self.mac_pos = self.start
+        self.mac = None
+        self.murdoc = None
+        self.create_maze()
+
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
             for x, char in enumerate(line.strip('\n')):
@@ -22,17 +25,19 @@ class Maze(object):
                     self._open_path.add((x, y))
                 if char == 's':
                     self._start = (x, y)
+                    self.mac = Characters.Hero('H', self._start, self)
                 elif char == 'e':
                     self._arrival = (x, y)
+                    self.murdoc = Characters.Character('G', self._arrival, self)
 
-    def draw_maze(self):
-        self.create_maze()
-        for i in range(self.height):
-            for j in range(self.width):
-                if (i, j) == self._start:
-                    print('s', end='')
+    def draw(self):
+        mac_position = self.mac.x, self.mac.y
+        for j in range(self.height):
+            for i in range(self.width):
+                if (i, j) == mac_position:
+                    print(self.mac.char_rect, end='')
                 elif (i, j) == self._arrival:
-                    print('e', end='')
+                    print(self.murdoc.char_rect, end='')
                 elif (i, j) in self._open_path:
                     print('.', end='')
                 else:
@@ -53,9 +58,18 @@ class Maze(object):
         return position in self._open_path
 
     def is_arrival(self, position):
-        return position in self._arrival
+        return position in self._arrival        
 
 
 if __name__ == '__main__':
     maze = Maze("maze_draw1.txt")
-    maze.draw_maze()
+    mac = maze.mac
+    
+    while True:
+        maze.draw()
+        answer = input("What direction do you want to take ?")
+        if answer in ['up', 'right', 'down', 'left']:
+            mac.move(answer)
+        elif answer == 'q':
+            break
+    
