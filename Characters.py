@@ -37,7 +37,7 @@ class Hero(Character):
         elif direction == "right":
             x, y = self.x + 1, self.y
 
-        if self.maze.is_valid((x,y)):
+        if self.maze.is_valid((x, y)):
             self.x, self.y = x, y
 
 
