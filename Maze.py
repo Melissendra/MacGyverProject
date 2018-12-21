@@ -1,5 +1,6 @@
 import constants as c
-import Characters
+import Characters, random
+from Items import Symbols, Item
 
 """ Creation of the maze structure """
 
@@ -17,6 +18,7 @@ class Maze(object):
         self.mac = None
         self.murdoc = None
         self.create_maze()
+        self.add_items()
 
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
@@ -38,6 +40,10 @@ class Maze(object):
                     print(self.mac.char_rect, end='')
                 elif (i, j) == self._arrival:
                     print(self.murdoc.char_rect, end='')
+                elif (i, j) in self.items_pos:
+                    for item in self.items:
+                        if (i, j) == (item.x, item.y):
+                            print(item.symbol, end='')
                 elif (i, j) in self._open_path:
                     print('.', end='')
                 else:
@@ -58,13 +64,38 @@ class Maze(object):
         return position in self._open_path
 
     def is_arrival(self, position):
-        return position in self._arrival        
+        return position in self._arrival
+
+    def free_place(self):
+        mac_position = self.mac.x, self.mac.y
+        self.free_pos = []
+        for place in self._open_path:
+            if place != mac_position and place != self._arrival:
+                self.free_pos.append(place)
+        return self.free_pos
+
+    def add_items(self):
+        available_symbols = [Symbols.NEEDLE, Symbols.SYRINGE, Symbols.ETHER]
+        self.items_pos = random.sample(self.free_place(), 3)
+        self.items = []
+        for pos, symbol in zip(self.items_pos, available_symbols):
+            self.items.append(Item(pos, symbol))
+
+    def has_object(self, position):
+        return position in self.items_pos
+
+    def remove_item(self, position):
+        mac_position = self.mac.x, self.mac.y
+        for item in self.items:
+            if mac_position == self.items_pos:
+                self.mac.catch_items(item)
+                self.items.pop(item)
 
 
 if __name__ == '__main__':
     maze = Maze("maze_draw1.txt")
     mac = maze.mac
-    
+
     while True:
         maze.draw()
         answer = input("What direction do you want to take ?")
@@ -72,4 +103,3 @@ if __name__ == '__main__':
             mac.move(answer)
         elif answer == 'q':
             break
-    
