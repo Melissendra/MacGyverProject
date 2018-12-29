@@ -13,10 +13,10 @@ WINDOW_ICON = "resources/macgyver.png"
 # differents images
 HOME_PAGE = "resources/explosion.png"
 
+ITEMS_NUMBER = 3
 NEEDLE_IMG = "resources/needle.png"
 ETHER_IMG = "resources/ether.png"
 PLASTIC_TUB_IMG = "resources/plastic_tube.png"
-SYRINGE_IMG = "resources/syringe.png"
 MACGYVER_RIGHT = "resources/mac_right.png"
 MACGYVER_LEFT = "resources/mac_left.png"
 MACGYVER_UP = "resources/mac_up.png"

@@ -1,6 +1,6 @@
 import pygame
 import Maze
-
+import constants as c
 """ Here we create the characters of the game with their moves and position. """
 
 
@@ -44,10 +44,13 @@ class Hero(Character):
             self.x, self.y = x, y
         
         if self.maze.has_object((x, y)):
-            self.x, self.y = x, y
+            item = self.maze.items[x, y]
+            self.inventory.append(item)
+            self.maze.remove_item((x,y))
+            print(self.inventory)
            
     def has_win(self):
-        if len(self.inventory) == 3:
+        if len(self.inventory) == c.ITEMS_NUMBER:
             print("You win !!")
 
    

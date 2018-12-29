@@ -19,6 +19,7 @@ class Maze(object):
         self.murdoc = None
         self.create_maze()
         self.add_items()
+       
 
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
@@ -40,15 +41,8 @@ class Maze(object):
                     print(self.mac.char_rect, end='')
                 elif (i, j) == self._arrival:
                     print(self.murdoc.char_rect, end='')
-                elif (i, j) in self.items_pos:
-                    for item in self.items:
-                        if (i, j) == (item.x, item.y):
-                            print(item.symbol, end='')
-                        if mac_position == (item.x, item.y):
-                            self.remove_item(item) 
-                            (i, j) == self._open_path  
-                            mac_position == (i, j)
-                            print('⬜', end='')
+                elif (i, j) in self.items:
+                    print(self.items[i, j].symbol, end='')
                 elif (i, j) in self._open_path:
                     print('⬜', end='')
                 else:
@@ -81,22 +75,17 @@ class Maze(object):
 
     def add_items(self):
         available_symbols = [Symbols.NEEDLE, Symbols.SYRINGE, Symbols.ETHER]
-        self.items_pos = random.sample(self.free_place(), 3)
-        self.items = []
-        for pos, symbol in zip(self.items_pos, available_symbols):
-            self.items.append(Item(pos, symbol))
+        items_pos = random.sample(self.free_place(), 3)
+        self.items = {}
+        for pos, symbol in zip(items_pos, available_symbols):
+            self.items[pos] = Item(pos, symbol)
 
     def has_object(self, position):
-        return position in self.items_pos
+        return position in self.items
 
     def remove_item(self, position):
-        mac_position = self.mac.x, self.mac.y
-        for item in self.items:
-            if mac_position in self.items_pos:
-                self.mac.inventory.append(item)
-                self.items.remove(item)
-                mac_position == self._open_path
-
+        del self.items[position]
+                
 
 if __name__ == '__main__':
     maze = Maze("maze_draw1.txt")
