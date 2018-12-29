@@ -27,10 +27,10 @@ class Maze(object):
                     self._open_path.add((x, y))
                 if char == 's':
                     self._start = (x, y)
-                    self.mac = Characters.Hero('H', self._start, self)
+                    self.mac = Characters.Hero('👮‍', self._start, self)
                 elif char == 'e':
                     self._arrival = (x, y)
-                    self.murdoc = Characters.Character('G', self._arrival, self)
+                    self.murdoc = Characters.Character('🧟', self._arrival, self)
 
     def draw(self):
         mac_position = self.mac.x, self.mac.y
@@ -44,10 +44,15 @@ class Maze(object):
                     for item in self.items:
                         if (i, j) == (item.x, item.y):
                             print(item.symbol, end='')
+                        if mac_position == (item.x, item.y):
+                            self.remove_item(item) 
+                            (i, j) == self._open_path  
+                            mac_position == (i, j)
+                            print('⬜', end='')
                 elif (i, j) in self._open_path:
-                    print('.', end='')
+                    print('⬜', end='')
                 else:
-                    print('m', end='')
+                    print('⬛', end='')
             print()
 
     def get_height(self):
@@ -87,9 +92,10 @@ class Maze(object):
     def remove_item(self, position):
         mac_position = self.mac.x, self.mac.y
         for item in self.items:
-            if mac_position == self.items_pos:
-                self.mac.catch_items(item)
-                self.items.pop(item)
+            if mac_position in self.items_pos:
+                self.mac.inventory.append(item)
+                self.items.remove(item)
+                mac_position == self._open_path
 
 
 if __name__ == '__main__':

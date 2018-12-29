@@ -43,8 +43,13 @@ class Hero(Character):
         if self.maze.is_valid((x, y)):
             self.x, self.y = x, y
         
-        # if self.maze.has_object(x, y)):
-            
+        if self.maze.has_object((x, y)):
+            self.x, self.y = x, y
+           
+    def has_win(self):
+        if len(self.inventory) == 3:
+            print("You win !!")
 
-    def catch_items(self, item):
-        pass
+   
+        
+

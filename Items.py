@@ -5,9 +5,9 @@ from enum import Enum
 
 
 class Symbols(Enum):
-    NEEDLE = 'N'
-    SYRINGE = 'P'
-    ETHER = 'T'
+    NEEDLE = '🗡️ '
+    SYRINGE = '📏'
+    ETHER = '💧'
 
 
 class Item:
