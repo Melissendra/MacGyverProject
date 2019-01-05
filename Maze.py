@@ -1,5 +1,6 @@
 import constants as c
 import Characters, random
+import Exceptions as ex
 from Items import Symbols, Item
 
 """ Creation of the maze structure """
@@ -19,7 +20,6 @@ class Maze(object):
         self.murdoc = None
         self.create_maze()
         self.add_items()
-       
 
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
@@ -27,11 +27,13 @@ class Maze(object):
                 if char in c.VALID_CHAR:
                     self._open_path.add((x, y))
                 if char == 's':
-                    self._start = (x, y)
-                    self.mac = Characters.Hero('👮‍', self._start, self)
+                    self._start = {(x, y)}
+                    self.mac = Characters.Hero('👮‍', list(self._start)[0], self)
                 elif char == 'e':
-                    self._arrival = (x, y)
-                    self.murdoc = Characters.Character('🧟', self._arrival, self)
+                    
+                    self._arrival = {(x, y)}
+                    self.murdoc = Characters.Character('🧟', list(self._arrival)[0], self)
+    
 
     def draw(self):
         mac_position = self.mac.x, self.mac.y
@@ -39,7 +41,7 @@ class Maze(object):
             for i in range(self.width):
                 if (i, j) == mac_position:
                     print(self.mac.char_rect, end='')
-                elif (i, j) == self._arrival:
+                elif (i, j) in self._arrival:
                     print(self.murdoc.char_rect, end='')
                 elif (i, j) in self.items:
                     print(self.items[i, j].symbol, end='')
@@ -66,12 +68,7 @@ class Maze(object):
         return position in self._arrival
 
     def free_place(self):
-        mac_position = self.mac.x, self.mac.y
-        self.free_pos = []
-        for place in self._open_path:
-            if place != mac_position and place != self._arrival:
-                self.free_pos.append(place)
-        return self.free_pos
+        return self._open_path - self._start - self._arrival
 
     def add_items(self):
         available_symbols = [Symbols.NEEDLE, Symbols.SYRINGE, Symbols.ETHER]
@@ -85,16 +82,24 @@ class Maze(object):
 
     def remove_item(self, position):
         del self.items[position]
-                
+
 
 if __name__ == '__main__':
     maze = Maze("maze_draw1.txt")
     mac = maze.mac
 
-    while True:
-        maze.draw()
-        answer = input("What direction do you want to take ?")
-        if answer in ['up', 'right', 'down', 'left']:
-            mac.move(answer)
-        elif answer == 'q':
-            break
+    try:
+        while True:
+            maze.draw()
+            answer = input("What direction do you want to take ?")
+            if answer in ['up', 'right', 'down', 'left']:
+                mac.move(answer)
+            elif answer == 'q':
+                break
+                
+    except ex.HasLostGame as e:
+        print(e)
+    except ex.HasWonGame as e :
+        print(e)
+        
+

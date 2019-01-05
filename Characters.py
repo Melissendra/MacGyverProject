@@ -1,44 +1,38 @@
-import pygame
 import Maze
 import constants as c
+import Exceptions as ex
+
 """ Here we create the characters of the game with their moves and position. """
 
 
 class Character:
-    def __init__(self, char_rect, position, maze):
-        #self.char_left = pygame.image.load(left).convert_alpha()
-        #self.char_right = pygame.image.load(right).convert_alpha()
-        #self.char_up = pygame.image.load(up).convert_alpha()
-        #self.char_down = pygame.image.load(down).convert_alpha()
-        #self.character_rect = self.char_right.get_rect()
+    def __init__(self, char_rect, position, maze, *args, **kargs):
+        super().__init__(*args, **kargs)
         self.char_rect = char_rect
-
-        # speed of MacGyver's deplacements
         self.x, self.y = position
-
         # Maze instance
         self.maze = maze
+        self.speed = 1
 
 
 class Hero(Character):
-    def __init__(self, char_rect, position, maze):
-        super().__init__(char_rect, position, maze)
+    def __init__(self, *args, **kargs):
+        super().__init__(*args, **kargs)
         self.speed = 1
         self.inventory = []
-        
 
     def move(self, direction):
         if direction == "up":
-            x, y = self.x, self.y - 1
+            x, y = self.x, self.y - self.speed
 
         elif direction == "down":
-            x, y = self.x, self.y + 1
+            x, y = self.x, self.y + self.speed
 
         elif direction == "left":
-            x, y = self.x - 1, self.y
+            x, y = self.x - self.speed, self.y
 
         elif direction == "right":
-            x, y = self.x + 1, self.y
+            x, y = self.x + self.speed, self.y
 
         if self.maze.is_valid((x, y)):
             self.x, self.y = x, y
@@ -48,10 +42,16 @@ class Hero(Character):
             self.inventory.append(item)
             self.maze.remove_item((x,y))
             print(self.inventory)
-           
-    def has_win(self):
-        if len(self.inventory) == c.ITEMS_NUMBER:
-            print("You win !!")
+
+        if self.maze.is_arrival((x, y)):
+            self.is_finished()
+
+    def is_finished(self):
+        if self.maze.is_arrival:
+            if len(self.inventory) == c.ITEMS_NUMBER:
+                raise ex.HasWonGame("You win !!!")
+            else:
+                raise ex.HasLostGame("You're dead !!!")
 
    
         
