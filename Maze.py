@@ -1,14 +1,15 @@
 import constants as c
 import Characters, random
 import Exceptions as ex
-from Items import Symbols, Item
+from Items import Item
 
 """ Creation of the maze structure """
 
 
-class Maze(object):
+class Maze:
 
-    def __init__(self, path):
+    def __init__(self, path, symbols, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         with open(path) as f:
             self._maze_txt = [line.strip("\n") for line in f.readlines()]
         self.height = len(self._maze_txt)
@@ -19,7 +20,7 @@ class Maze(object):
         self.mac = None
         self.murdoc = None
         self.create_maze()
-        self.add_items()
+        self.add_items(symbols)
 
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
@@ -30,7 +31,6 @@ class Maze(object):
                     self._start = {(x, y)}
                     self.mac = Characters.Hero('👮‍', list(self._start)[0], self)
                 elif char == 'e':
-                    
                     self._arrival = {(x, y)}
                     self.murdoc = Characters.Character('🧟', list(self._arrival)[0], self)
     
@@ -70,8 +70,8 @@ class Maze(object):
     def free_place(self):
         return self._open_path - self._start - self._arrival
 
-    def add_items(self):
-        available_symbols = [Symbols.NEEDLE, Symbols.SYRINGE, Symbols.ETHER]
+    def add_items(self, symbols):
+        available_symbols = symbols
         items_pos = random.sample(self.free_place(), 3)
         self.items = {}
         for pos, symbol in zip(items_pos, available_symbols):
@@ -85,7 +85,8 @@ class Maze(object):
 
 
 if __name__ == '__main__':
-    maze = Maze("maze_draw1.txt")
+    symbols = ['🗡️ ', '📏', '💧']
+    maze = Maze("maze_draw1.txt", symbols)
     mac = maze.mac
 
     try:

@@ -6,8 +6,8 @@ import Exceptions as ex
 
 
 class Character:
-    def __init__(self, char_rect, position, maze, *args, **kargs):
-        super().__init__(*args, **kargs)
+    def __init__(self, char_rect, position, maze, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.char_rect = char_rect
         self.x, self.y = position
         # Maze instance
@@ -16,8 +16,8 @@ class Character:
 
 
 class Hero(Character):
-    def __init__(self, *args, **kargs):
-        super().__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.speed = 1
         self.inventory = []
 
@@ -53,6 +53,7 @@ class Hero(Character):
             else:
                 raise ex.HasLostGame("You're dead !!!")
 
-   
-        
 
+class Guardian(Character):
+    def __init__(self, *args, **kwargs):
+        super.__init__(*args, **kwargs)
