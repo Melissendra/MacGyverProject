@@ -8,7 +8,7 @@ from Buttons import PlayButton
 """Creation of the maze"""
 
 
-class Game(pygame.sprite.Sprite):
+class Game():
 
     def __init__(self):
         pygame.init()

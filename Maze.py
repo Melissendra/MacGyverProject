@@ -33,7 +33,6 @@ class Maze:
                 elif char == 'e':
                     self._arrival = {(x, y)}
                     self.murdoc = Characters.Character('🧟', list(self._arrival)[0], self)
-    
 
     def draw(self):
         mac_position = self.mac.x, self.mac.y

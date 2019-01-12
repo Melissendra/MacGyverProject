@@ -10,7 +10,6 @@ class Character:
         super().__init__(*args, **kwargs)
         self.char_rect = char_rect
         self.x, self.y = position
-        # Maze instance
         self.maze = maze
         self.speed = 1
 
@@ -53,7 +52,3 @@ class Hero(Character):
             else:
                 raise ex.HasLostGame("You're dead !!!")
 
-
-class Guardian(Character):
-    def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
