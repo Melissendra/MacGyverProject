@@ -11,7 +11,7 @@ class Character:
         self.char_rect = char_rect
         self.x, self.y = position
         self.maze = maze
-        self.speed = 1
+
 
 
 class Hero(Character):
