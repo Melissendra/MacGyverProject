@@ -1,5 +1,5 @@
 
-"""Games' constants"""
+"""Games' constants that we're going to use later"""
 
 # Window properties
 SPRITE_SIZE = 50
