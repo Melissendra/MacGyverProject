@@ -30,7 +30,9 @@ class ClickableButton:
         pass
 
     def is_left_mouse_down(self):
-        if pygame.mouse.get_pressed()[0] == 1:
+        if (self.is_mouse_over() and 
+            pygame.mouse.get_pressed()[0] == 1
+        ):
             return True
         else:
             return False
