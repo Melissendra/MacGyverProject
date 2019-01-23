@@ -29,10 +29,10 @@ class Maze:
                     self._open_path.add((x, y))
                 if char == 's':
                     self._start = {(x, y)}
-                    self.mac = Characters.Hero('👮‍', list(self._start)[0], self)
+                    self.mac = Characters.Hero('👮‍♂️', list(self._start)[0], self)
                 elif char == 'e':
                     self._arrival = {(x, y)}
-                    self.murdoc = Characters.Character('🧟', list(self._arrival)[0], self)
+                    self.murdoc = Characters.Character('🧟‍♂️', list(self._arrival)[0], self)
 
     def draw(self):
         mac_position = self.mac.x, self.mac.y
@@ -84,8 +84,8 @@ class Maze:
 
 
 if __name__ == '__main__':
-    symbols = ['🗡️ ', '📏', '💧']
-    maze = Maze("maze_draw1.txt", symbols)
+    symbols = ['💉', '🧪', '💎']
+    maze = Maze("maze_draw_test.txt", symbols)
     mac = maze.mac
 
     try:
@@ -96,10 +96,10 @@ if __name__ == '__main__':
                 mac.move(answer)
             elif answer == 'q':
                 break
-                
+
     except ex.HasLostGame as e:
         print(e)
     except ex.HasWonGame as e :
         print(e)
-        
+
 

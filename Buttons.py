@@ -1,7 +1,7 @@
 import pygame
 
 from pygame.locals import *
-from constants import *
+import constants as c
 
 
 """Creation of the Game's buttons"""
@@ -42,10 +42,9 @@ class ClickableButton:
         # detect if the mouse button is pressed
         mouse = pygame.mouse.get_pressed()
 
-        if self.is_mouse_over():
-            if mouse[0] and self.has_clicked == False:
-                self.has_clicked = True
-                return True
+        if mouse[0] == True and self.has_clicked == False and self.is_mouse_over():
+            self.has_clicked = True
+            return True
         if mouse[0] == False and self.has_clicked == True:
             self.has_clicked = False
 
@@ -72,23 +71,25 @@ class PlayButton(ClickableButton):
         self.color = color
         self.image = pygame.Surface(size)
         self.image.fill(self.color)
-        self.font_button = pygame.font.Font("resources/Arcon-Regular.otf", 24)
-        self.text = self.font_button.render(text, 0, BLACK)
+        self.font_button = pygame.font.Font("resources/Arcon-Regular.otf", 20)
+        self.text = self.font_button.render(text, 0, c.BLACK)
+        self.text_rect = self.text.get_rect()
+        self.text_rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
 
     def do_mouse_over(self):
         over = pygame.Surface(self.rect.size)
         over.set_alpha(60)
-        over.fill(BLACK)
+        over.fill(c.BLACK)
         self.image.blit(over, (0, 0))
 
     def do_left_mouse_down(self):
-        self.image.fill(RED)
+        self.image.fill(c.RED)
 
     def do_click(self):
         print("You clicked a button")
 
     def draw(self, window):
-        self.image.blit(self.text, (28, 1))
+        self.image.blit(self.text, self.text_rect)
         window.blit(self.image, self.rect)
 
     def update(self, window):

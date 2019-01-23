@@ -17,7 +17,7 @@ class Game():
     def home_page(self):
         self.window = pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE))
         rect = self.window.get_rect()
-        
+
         play_b = PlayButton((rect.centerx, rect.centery + 330), (100, 40), c.LIGHT_GREEN, "Play")
 
         # Window's icon
@@ -39,9 +39,7 @@ class Game():
         pos_welcome_txt.center = self.window.get_rect().center
         pos_welcome_txt.y -= 330
         self.window.blit(welcome_text, pos_welcome_txt)
-
-        play_b.update(self.window)
-
+        play_b.update (self.window)
         pygame.display.flip()
 
     """ The principal loop """

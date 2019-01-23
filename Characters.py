@@ -18,6 +18,7 @@ class Hero(Character):
         super().__init__(*args, **kwargs)
         self.speed = 1
         self.inventory = []
+        self.item_taken = 0
 
     def move(self, direction):
         if direction == "up":
@@ -35,11 +36,11 @@ class Hero(Character):
         if self.maze.is_valid((x, y)):
             self.x, self.y = x, y
 
-        if self.maze.has_object((x , y)):
+        if self.maze.has_object((x, y)):
             item = self.maze.items[x, y]
             self.inventory.append(item)
-            self.maze.remove_item((x , y))
-            print(self.inventory)
+            self.maze.remove_item((x, y))
+            print("Items:" + str(self.item_taken))
 
         if self.maze.is_arrival((x, y)):
             self.is_finished()

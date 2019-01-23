@@ -1,10 +1,10 @@
 from CharactersGui import HeroGUI, GuardianGUI
-import pygame
+import pygame, os
 import constants as c
 import Exceptions as ex
 from pygame.locals import KEYDOWN, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_ESCAPE, QUIT
 from Maze import Maze
-
+from Buttons import PlayButton
 
 """ Creation of the Maze's interface graphic with pygame"""
 
@@ -17,10 +17,11 @@ class MazeGui(Maze):
         self.screen = pygame.display.get_surface()
         self.mac = HeroGUI('h', list(self._start)[0], self)
         self.murdoc = GuardianGUI('g', list(self._arrival)[0], self)
+        self.mac_position = self.mac.x, self.mac.y
+        self.murdoc_position = self.murdoc.x, self.murdoc.y
 
     def draw(self):
-        mac_position = self.mac.x, self.mac.y
-        murdoc_position = self.murdoc.x, self.murdoc.y
+        
         for j in range(self.height):
             for i in range(self.width):
                 if (i, j) in self._open_path:
@@ -28,17 +29,50 @@ class MazeGui(Maze):
                 else:
                     self.screen.blit(self.wall_img, (i * c.SPRITE_SIZE, j * c.SPRITE_SIZE))
 
-                if (i, j) == mac_position:
+                if (i, j) == self.mac_position:
                     self.screen.blit(self.mac.image, self.mac.rect)
-                elif (i, j) == murdoc_position:
+                elif (i, j) == self.murdoc_position:
                     self.screen.blit(self.murdoc.image, self.murdoc.rect)
                 elif (i, j) in self.items:
                     self.screen.blit(self.items[i, j].symbol, (i * c.SPRITE_SIZE, j * c.SPRITE_SIZE))
 
+    def remove_item(self, position):
+        items_sound = self.load_sound(c.ITEMS_TAKEN)
+        super().remove_item(position)
+        items_sound.play()
+        self.mac.item_taken += 1
+
+    def load_sound(self, name):
+        sound = pygame.mixer.Sound(name)
+        return sound
+
+    def scoring(self):
+        font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
+        items_txt = font.render("Items: " + str(self.mac.item_taken), True, c.BLACK)
+        self.screen.blit(items_txt, (20, 760))
+
+    def finished_window(self, text):        
+        game_finished = pygame.Surface((400, 200)).convert()
+        game_finished.fill(c.WHITE)
+        play_b = PlayButton((100, 150), (120, 50), c.LIGHT_GREEN, "Play Again!")
+        quit_b = PlayButton((300, 150), (120, 50), c.LIGHT_GREEN, "Quit!")
+        font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
+        finished_txt = font.render(text, 0, c.BLACK)
+        finished_txt_rect = finished_txt.get_rect()
+        finished_txt_rect.center = (game_finished.get_width() / 2, 50)
+        pos_game_finished = game_finished.get_rect()
+        pos_game_finished.center = (maze.screen.get_width() / 2, maze.screen.get_height() / 2)
+        play_b.update(game_finished)
+        quit_b.update(game_finished)
+        game_finished.blit(finished_txt, finished_txt_rect)
+        self.screen.blit(game_finished, pos_game_finished)
+
 
 if __name__ == '__main__':
     pygame.init()
-    pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE))
+    pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE + 50))
+    background = pygame.Surface((c.WINDOW_SIZE, c.WINDOW_SIZE+50))
+    background.fill(c.WHITE)
 
     symbols = [
         pygame.image.load(c.NEEDLE_IMG).convert_alpha(),
@@ -46,13 +80,18 @@ if __name__ == '__main__':
         pygame.image.load(c.ETHER_IMG).convert_alpha()
     ]
 
-    maze = MazeGui("maze_draw1.txt", symbols)
+    maze = MazeGui("maze_draw_test.txt", symbols)
     mac = maze.mac
+    victory_sound = maze.load_sound(c.VICTORY_SOUND)
+    rip_sound = maze.load_sound(c.RIP_SOUND)
+    items_sound = maze.load_sound(c.ITEMS_TAKEN)
     running = True
 
     try:
         while running:
+            maze.screen.blit(background, (0, 0))
             maze.draw()
+            maze.scoring()
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                     running = False
@@ -67,32 +106,28 @@ if __name__ == '__main__':
                     elif event.key == K_UP:
                         mac.move("up")
 
+                
+
             maze.screen.blit(mac.image, mac.rect)
             pygame.display.flip()
 
     except ex.HasWonGame:
         running = True
+        victory_sound.play()
         while running:
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                     running = False
 
-            game_finished = pygame.Surface((250, 100)).convert()
-            game_finished.fill(c.LIGHT_GREEN)
-            font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
-            winning_txt = font.render("You win!!!", 0, c.DARKER_GREEN)
-            pos_game_finished = game_finished.get_rect().center
-            winning_txt.get_rect().center = pos_game_finished
-            game_finished.blit(winning_txt, winning_txt.get_rect())
-            maze.screen.blit(game_finished,(0, 0))
+            maze.finished_window("You Win!!")
             pygame.display.flip()
 
     except ex.HasLostGame:
-        pop_up = pygame.display.set_mode((100, 80))
-        font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
-        losing_txt = font.render("You're dead!!!", 0, c.DARKER_GREEN)
-        pos_losing_txt = winning_txt.get_rect().center
-        pop_up.blit(losing_txt, pos_losing_txt)
-        pygame.display.flip()
-
-
+        running = True
+        rip_sound.play()
+        while running:
+            for event in pygame.event.get():
+                if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
+                    running = False
+            maze.finished_window("You're dead!!!")
+            pygame.display.flip()
