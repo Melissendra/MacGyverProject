@@ -54,18 +54,21 @@ class MazeGui(Maze):
     def finished_window(self, text):        
         game_finished = pygame.Surface((400, 200)).convert()
         game_finished.fill(c.WHITE)
-        play_b = PlayButton((100, 150), (120, 50), c.LIGHT_GREEN, "Play Again!")
-        quit_b = PlayButton((300, 150), (120, 50), c.LIGHT_GREEN, "Quit!")
         font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
         finished_txt = font.render(text, 0, c.BLACK)
         finished_txt_rect = finished_txt.get_rect()
         finished_txt_rect.center = (game_finished.get_width() / 2, 50)
         pos_game_finished = game_finished.get_rect()
         pos_game_finished.center = (maze.screen.get_width() / 2, maze.screen.get_height() / 2)
-        play_b.update(game_finished)
-        quit_b.update(game_finished)
         game_finished.blit(finished_txt, finished_txt_rect)
         self.screen.blit(game_finished, pos_game_finished)
+
+        play_b_pos = (pos_game_finished.left+100, pos_game_finished.top+150)
+        quit_b_pos = (pos_game_finished.left+300, pos_game_finished.top+150)
+        play_b = PlayButton(play_b_pos, (120, 50), c.LIGHT_GREEN, "Play Again!")
+        quit_b = PlayButton(quit_b_pos, (120, 50), c.LIGHT_GREEN, "Quit!")
+        play_b.update(self.screen)
+        quit_b.update(self.screen)
 
 
 if __name__ == '__main__':
