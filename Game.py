@@ -18,8 +18,6 @@ class Game():
         self.window = pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE))
         rect = self.window.get_rect()
 
-        play_b = PlayButton((rect.centerx, rect.centery + 330), (100, 40), c.LIGHT_GREEN, "Play")
-
         # Window's icon
         icon = pygame.image.load(c.WINDOW_ICON)
         pygame.display.set_icon(icon)
@@ -39,23 +37,19 @@ class Game():
         pos_welcome_txt.center = self.window.get_rect().center
         pos_welcome_txt.y -= 330
         self.window.blit(welcome_text, pos_welcome_txt)
-        play_b.update (self.window)
-        pygame.display.flip()
+        self.play_b = PlayButton((rect.centerx, rect.centery + 300), (100, 40), c.LIGHT_GREEN, "Play", "Play")
 
     """ The principal loop """
+
     def run(self):
-
         running = True
+        self.home_page()
         while running:
-            print(pygame.mouse.get_pressed())
-
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
                     running = False
-
-            # Window initialization
-            self.home_page()
-
+                    
+            self.play_b.update(self.window)
             pygame.display.flip()
 
 

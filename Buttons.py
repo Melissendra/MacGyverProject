@@ -1,6 +1,4 @@
 import pygame
-
-from pygame.locals import *
 import constants as c
 
 
@@ -30,7 +28,7 @@ class ClickableButton:
         pass
 
     def is_left_mouse_down(self):
-        if pygame.mouse.get_pressed()[0] == 1:
+        if self.is_mouse_over() and pygame.mouse.get_pressed()[0] == 1:
             return True
         else:
             return False
@@ -65,10 +63,11 @@ class ClickableButton:
 
 
 class PlayButton(ClickableButton):
-    def __init__(self, pos, size, color, text):
+    def __init__(self, pos, size, color, text, action):
         super().__init__(pos, size)
 
         self.color = color
+        self.action = action
         self.image = pygame.Surface(size)
         self.image.fill(self.color)
         self.font_button = pygame.font.Font("resources/Arcon-Regular.otf", 20)
@@ -86,7 +85,10 @@ class PlayButton(ClickableButton):
         self.image.fill(c.RED)
 
     def do_click(self):
-        print("You clicked a button")
+        if self.action == "Play":
+            pass
+        if self.action == "Quit":
+            pygame.quit()
 
     def draw(self, window):
         self.image.blit(self.text, self.text_rect)
