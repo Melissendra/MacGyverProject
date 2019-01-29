@@ -4,7 +4,8 @@ import constants as c
 import Exceptions as ex
 from pygame.locals import KEYDOWN, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_ESCAPE, QUIT
 from Maze import Maze
-from Buttons import PlayButton
+import Buttons
+
 
 """ Creation of the Maze's interface graphic with pygame"""
 
@@ -63,13 +64,13 @@ class MazeGui(Maze):
         self.screen.blit(game_finished, pos_game_finished)
         play_b_pos = (pos_game_finished.left + 100, pos_game_finished.top + 150)
         quit_b_pos = (pos_game_finished.left + 300, pos_game_finished.top + 150)
-        play_b = PlayButton(play_b_pos, (120, 50), c.LIGHT_GREEN, "Play Again!", "Play")
-        quit_b = PlayButton(quit_b_pos, (120, 50), c.LIGHT_GREEN, "Quit!", "Quit")
+        play_b = Buttons.ClickableButton(play_b_pos, (120, 50), c.LIGHT_GREEN, "Play Again!", "Play")
+        quit_b = Buttons.ClickableButton(quit_b_pos, (120, 50), c.LIGHT_GREEN, "Quit!", "Quit")
         play_b.update(self.screen)
         quit_b.update(self.screen)
 
 
-if __name__ == '__main__':
+def main():
     pygame.init()
     pygame.display.set_mode((c.WINDOW_SIZE, c.WINDOW_SIZE + 50))
     background = pygame.Surface((c.WINDOW_SIZE, c.WINDOW_SIZE+50))
@@ -128,3 +129,6 @@ if __name__ == '__main__':
                     running = False
             maze.finished_window("You're dead!!!")
             pygame.display.flip()
+
+if __name__=='__main__':
+    main()

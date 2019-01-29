@@ -1,8 +1,11 @@
 import pygame
 
-from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
+from pygame.locals import *
 import constants as c
-from Buttons import PlayButton
+import Exceptions as ex
+import Buttons
+import MazeGUI
+
 
 
 """Creation of the maze"""
@@ -37,25 +40,31 @@ class Game():
         pos_welcome_txt.center = self.window.get_rect().center
         pos_welcome_txt.y -= 330
         self.window.blit(welcome_text, pos_welcome_txt)
-        self.play_b = PlayButton((rect.centerx, rect.centery + 300), (100, 40), c.LIGHT_GREEN, "Play", "Play")
+        self.play_b = Buttons.ClickableButton((rect.centerx, rect.centery + 300), (100, 40), c.LIGHT_GREEN, "Play", "Play")
 
-    """ The principal loop """
+    """ The welcome loop """
 
     def run(self):
-        running = True
+        running_welcome = True
         self.home_page()
-        while running:
+        while running_welcome:
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                    running = False
-                    
+                    running_welcome = False
+                if event.type == pygame.mouse.get_pressed():
+                    running_welcome = False
+                    MazeGUI.main()
+
             self.play_b.update(self.window)
             pygame.display.flip()
 
-
-if __name__ == '__main__':
-    Game().run()
-
-
+            
+            
+            
 
 
+            
+
+if __name__=='__main__':
+    play_game = Game()
+    play_game.run()
