@@ -11,7 +11,7 @@ ITEMS_NUMBER = 3
 WINDOW_TITLE = "Help MacGyver to escape"
 WINDOW_ICON = "resources/Macgyver.png"
 
-# differents images
+# different images
 HOME_PAGE = "resources/explosion.png"
 NEEDLE_IMG = "resources/needle.png"
 ETHER_IMG = "resources/ether.png"

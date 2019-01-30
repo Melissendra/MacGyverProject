@@ -1,6 +1,8 @@
 import pygame
-from Characters import Hero, Character
+from characters import Hero, Character
 import constants as c
+
+"""We create the appearance and specificity of the characters in interface mode"""
 
 
 class HeroGUI(Hero):

@@ -1,17 +1,14 @@
 import pygame
-
-from pygame.locals import *
 import constants as c
-import Exceptions as ex
-import Buttons
-import MazeGUI
-
+import buttons
+import mazeGUI
+from pygame.locals import *
 
 
 """Creation of the maze"""
 
 
-class Game():
+class Game:
 
     def __init__(self):
         pygame.init()
@@ -40,7 +37,7 @@ class Game():
         pos_welcome_txt.center = self.window.get_rect().center
         pos_welcome_txt.y -= 330
         self.window.blit(welcome_text, pos_welcome_txt)
-        self.play_b = Buttons.ClickableButton((rect.centerx, rect.centery + 300), (100, 40), c.LIGHT_GREEN, "Play", "Play")
+        self.play_b = buttons.ClickableButton((rect.centerx, rect.centery + 300), (100, 40), c.LIGHT_GREEN, "Play", "Play")
 
     """ The welcome loop """
 
@@ -53,18 +50,12 @@ class Game():
                     running_welcome = False
                 if event.type == pygame.mouse.get_pressed():
                     running_welcome = False
-                    MazeGUI.main()
+                    mazeGUI.main()
 
             self.play_b.update(self.window)
             pygame.display.flip()
 
-            
-            
-            
 
-
-            
-
-if __name__=='__main__':
+if __name__ == '__main__':
     play_game = Game()
     play_game.run()

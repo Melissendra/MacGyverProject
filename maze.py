@@ -1,15 +1,15 @@
 import constants as c
-import Characters, random
-import Exceptions as ex
-from Items import Item
+import characters, random
+import end_game_exceptions as ex
+from items import Item
 
-""" Creation of the maze structure """
+""" Creation of the maze structure in terminal mode"""
 
 
 class Maze:
-
     def __init__(self, path, symbols, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # opening of the file txt where is draw the maze
         with open(path) as f:
             self._maze_txt = [line.strip("\n") for line in f.readlines()]
         self.height = len(self._maze_txt)
@@ -22,6 +22,7 @@ class Maze:
         self.create_maze()
         self.add_items(symbols)
 
+    # iteration and creation of the maze while reading the file
     def create_maze(self):
         for y, line in enumerate(self._maze_txt):
             for x, char in enumerate(line.strip('\n')):
@@ -29,11 +30,12 @@ class Maze:
                     self._open_path.add((x, y))
                 if char == 's':
                     self._start = {(x, y)}
-                    self.mac = Characters.Hero('👮‍♂️', list(self._start)[0], self)
+                    self.mac = characters.Hero('👮‍♂️', list(self._start)[0], self)
                 elif char == 'e':
                     self._arrival = {(x, y)}
-                    self.murdoc = Characters.Character('🧟‍♂️', list(self._arrival)[0], self)
+                    self.murdoc = characters.Character('🧟‍♂️', list(self._arrival)[0], self)
 
+    # drawing of the maze
     def draw(self):
         mac_position = self.mac.x, self.mac.y
         for j in range(self.height):
@@ -60,15 +62,18 @@ class Maze:
             print(" The maze's width is not the same in each line. ")
         return self.width
 
+    # check if it's not a wall
     def is_valid(self, position):
         return position in self._open_path
 
     def is_arrival(self, position):
         return position in self._arrival
 
+    # check if there's not another item
     def free_place(self):
         return self._open_path - self._start - self._arrival
 
+    # addition randomly of items
     def add_items(self, symbols):
         available_symbols = symbols
         items_pos = random.sample(self.free_place(), 3)
@@ -79,6 +84,7 @@ class Maze:
     def has_object(self, position):
         return position in self.items
 
+    # delete the item when mac takes it
     def remove_item(self, position):
         del self.items[position]
 

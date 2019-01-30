@@ -1,8 +1,8 @@
-from Maze import Maze
+from maze import Maze
 import constants as c
-import Exceptions as ex
+import end_game_exceptions as ex
 
-""" Here we create the characters of the game with their moves and position. """
+""" Here we create the characters of the game with their moves and position. In terminal mode """
 
 
 class Character:
@@ -20,6 +20,7 @@ class Hero(Character):
         self.inventory = []
         self.item_taken = 0
 
+    # define how the character moves
     def move(self, direction):
         if direction == "up":
             x, y = self.x, self.y - self.speed
@@ -33,9 +34,11 @@ class Hero(Character):
         elif direction == "right":
             x, y = self.x + self.speed, self.y
 
+        # check if it's a path and not a wall
         if self.maze.is_valid((x, y)):
             self.x, self.y = x, y
 
+        # check if there is an item in the new Mac's position
         if self.maze.has_object((x, y)):
             item = self.maze.items[x, y]
             self.inventory.append(item)
@@ -45,6 +48,7 @@ class Hero(Character):
         if self.maze.is_arrival((x, y)):
             self.is_finished()
 
+    # check if the inventory contains the 3 needed items and tell if Mac Win or die
     def is_finished(self):
         if self.maze.is_arrival:
             if len(self.inventory) == c.ITEMS_NUMBER:

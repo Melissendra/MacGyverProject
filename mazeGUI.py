@@ -1,10 +1,10 @@
-from CharactersGui import HeroGUI, GuardianGUI
+from charactersGui import HeroGUI, GuardianGUI
 import pygame, os
 import constants as c
-import Exceptions as ex
+import end_game_exceptions as ex
 from pygame.locals import KEYDOWN, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_ESCAPE, QUIT
-from Maze import Maze
-import Buttons
+from maze import Maze
+import buttons
 
 
 """ Creation of the Maze's interface graphic with pygame"""
@@ -42,7 +42,8 @@ class MazeGui(Maze):
         items_sound.play()
         self.mac.item_taken += 1
 
-    def load_sound(self, name):
+    @staticmethod
+    def load_sound(name):
         sound = pygame.mixer.Sound(name)
         return sound
 
@@ -62,10 +63,12 @@ class MazeGui(Maze):
         pos_game_finished.center = (self.screen.get_width() / 2, self.screen.get_height() / 2)
         game_finished.blit(finished_txt, finished_txt_rect)
         self.screen.blit(game_finished, pos_game_finished)
+
+        # creation of the buttons display with its position and functions
         play_b_pos = (pos_game_finished.left + 100, pos_game_finished.top + 150)
         quit_b_pos = (pos_game_finished.left + 300, pos_game_finished.top + 150)
-        play_b = Buttons.ClickableButton(play_b_pos, (120, 50), c.LIGHT_GREEN, "Play Again!", "Play")
-        quit_b = Buttons.ClickableButton(quit_b_pos, (120, 50), c.LIGHT_GREEN, "Quit!", "Quit")
+        play_b = buttons.ClickableButton(play_b_pos, (120, 50), c.LIGHT_GREEN, "Play Again!", "Play")
+        quit_b = buttons.ClickableButton(quit_b_pos, (120, 50), c.LIGHT_GREEN, "Quit!", "Quit")
         play_b.update(self.screen)
         quit_b.update(self.screen)
 
@@ -76,6 +79,7 @@ def main():
     background = pygame.Surface((c.WINDOW_SIZE, c.WINDOW_SIZE+50))
     background.fill(c.WHITE)
 
+    # images of the items
     symbols = [
         pygame.image.load(c.NEEDLE_IMG).convert_alpha(),
         pygame.image.load(c.SYRINGE).convert_alpha(),
@@ -130,5 +134,3 @@ def main():
             maze.finished_window("You're dead!!!")
             pygame.display.flip()
 
-if __name__=='__main__':
-    main()
