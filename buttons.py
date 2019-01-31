@@ -1,8 +1,8 @@
+"""Creation of the Game's buttons display and actions"""
+
 import pygame
 import constants as c
 import mazeGUI
-
-"""Creation of the Game's buttons display and actions"""
 
 
 class ClickableButton:
@@ -19,8 +19,10 @@ class ClickableButton:
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
 
-    # detection if the mouse is over the button
+    
     def is_mouse_over(self):
+        """detection if the mouse is over the button"""
+
         # detect the position of the mouse
         cursor = pygame.mouse.get_pos()
         if self.rect.left < cursor[0] < self.rect.right and self.rect.top < cursor[1] < self.rect.bottom:
@@ -28,8 +30,9 @@ class ClickableButton:
         else:
             return False
 
-    # colors the buttons when the mouse is over the button
+    
     def do_mouse_over(self):
+        """colors the buttons when the mouse is over the button"""
         over = pygame.Surface(self.rect.size)
         over.set_alpha(60)
         over.fill(c.BLACK)
@@ -46,7 +49,7 @@ class ClickableButton:
         self.image.fill(c.RED)
 
     def is_clicked(self):
-        # detect if the mouse button is pressed
+        """detect if the mouse button is pressed"""
         mouse = pygame.mouse.get_pressed()
         if mouse[0] == True and self.has_clicked == False and self.is_mouse_over():
             self.has_clicked = True

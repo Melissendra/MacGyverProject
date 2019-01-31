@@ -22,8 +22,9 @@ class Maze:
         self.create_maze()
         self.add_items(symbols)
 
-    # iteration and creation of the maze while reading the file
+    
     def create_maze(self):
+        """ iteration and creation of the maze while reading the file"""
         for y, line in enumerate(self._maze_txt):
             for x, char in enumerate(line.strip('\n')):
                 if char in c.VALID_CHAR:
@@ -35,8 +36,9 @@ class Maze:
                     self._arrival = {(x, y)}
                     self.murdoc = characters.Character('🧟‍♂️', list(self._arrival)[0], self)
 
-    # drawing of the maze
+    
     def draw(self):
+        """ drawing of the maze"""
         mac_position = self.mac.x, self.mac.y
         for j in range(self.height):
             for i in range(self.width):
@@ -53,28 +55,33 @@ class Maze:
             print()
 
     def get_height(self):
+        """ return the height of the maze """
         return self.height
 
-    """ We check if the maze has the same width everywhere """
     def get_width(self):
+        """ We check if the maze has the same width everywhere """
         maze_width = all(len(item) == self.width for item in self._maze_txt)
         if maze_width is False:
             print(" The maze's width is not the same in each line. ")
         return self.width
 
-    # check if it's not a wall
+    
     def is_valid(self, position):
+        """check if it's not a wall"""
         return position in self._open_path
 
     def is_arrival(self, position):
+        """check if the position is the arrival"""
         return position in self._arrival
 
-    # check if there's not another item
+    
     def free_place(self):
+        """check if there's not another item"""
         return self._open_path - self._start - self._arrival
 
-    # addition randomly of items
+    
     def add_items(self, symbols):
+        """addition randomly of items"""
         available_symbols = symbols
         items_pos = random.sample(self.free_place(), 3)
         self.items = {}
@@ -82,16 +89,18 @@ class Maze:
             self.items[pos] = Item(pos, symbol)
 
     def has_object(self, position):
+        """ check if the path contains an item"""
         return position in self.items
 
     # delete the item when mac takes it
     def remove_item(self, position):
+        """remove the item of the path when Mac takes it"""
         del self.items[position]
 
 
 if __name__ == '__main__':
     symbols = ['💉', '🧪', '💎']
-    maze = Maze("maze_draw_test.txt", symbols)
+    maze = Maze("maze_draw1.txt", symbols)
     mac = maze.mac
 
     try:

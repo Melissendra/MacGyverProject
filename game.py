@@ -31,7 +31,7 @@ class Game:
         self.window.blit(home, (0, 0))
 
         # Welcome sentence
-        font = pygame.font.Font("resources/Arcon-Regular.otf", 30)
+        font = pygame.font.Font("resources/Arcon-Regular.otf", 40)
         welcome_text = font.render("Welcome to MacGyver's Maze !", 0, c.DARKER_GREEN)
         pos_welcome_txt = welcome_text.get_rect()
         pos_welcome_txt.center = self.window.get_rect().center
