@@ -48,12 +48,11 @@ class ClickableButton:
     def is_clicked(self):
         # detect if the mouse button is pressed
         mouse = pygame.mouse.get_pressed()
-        if mouse[0] is True and self.has_clicked is False and self.is_mouse_over():
+        if mouse[0] == True and self.has_clicked == False and self.is_mouse_over():
             self.has_clicked = True
             return True
-        if mouse[0] is False and self.has_clicked is True:
+        if mouse[0] == False and self.has_clicked == True:
             self.has_clicked = False
-
         return False
 
     def do_click(self):

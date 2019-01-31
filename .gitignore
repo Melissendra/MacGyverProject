@@ -4,4 +4,6 @@ pipenv/
 venv/
 .pyc/
 .__pycache__/
+.project
+.pydevproject
 

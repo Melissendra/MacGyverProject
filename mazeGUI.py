@@ -37,15 +37,10 @@ class MazeGui(Maze):
                     self.screen.blit(self.items[i, j].symbol, (i * c.SPRITE_SIZE, j * c.SPRITE_SIZE))
 
     def remove_item(self, position):
-        items_sound = self.load_sound(c.ITEMS_TAKEN)
+        items_sound = load_sound(c.ITEMS_TAKEN)
         super().remove_item(position)
         items_sound.play()
         self.mac.item_taken += 1
-
-    @staticmethod
-    def load_sound(name):
-        sound = pygame.mixer.Sound(name)
-        return sound
 
     def scoring(self):
         font = pygame.font.Font("resources/Arcon-Regular.otf", 25)
@@ -72,6 +67,9 @@ class MazeGui(Maze):
         play_b.update(self.screen)
         quit_b.update(self.screen)
 
+def load_sound(name):
+    sound = pygame.mixer.Sound(name)
+    return sound
 
 def main():
     pygame.init()
@@ -88,8 +86,8 @@ def main():
 
     maze = MazeGui("maze_draw1.txt", symbols)
     mac = maze.mac
-    victory_sound = maze.load_sound(c.VICTORY_SOUND)
-    rip_sound = maze.load_sound(c.RIP_SOUND)
+    victory_sound = load_sound(c.VICTORY_SOUND)
+    rip_sound = load_sound(c.RIP_SOUND)
     running = True
 
     try:
@@ -99,7 +97,7 @@ def main():
             maze.scoring()
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                    running = False
+                    exit()
 
                 if event.type == KEYDOWN:
                     if event.key == K_RIGHT:

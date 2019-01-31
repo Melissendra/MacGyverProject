@@ -2,10 +2,10 @@ import pygame
 import constants as c
 import buttons
 import mazeGUI
-from pygame.locals import *
+from pygame.locals import K_ESCAPE, QUIT, KEYDOWN
 
 
-"""Creation of the maze"""
+"""Creation of the Home Page"""
 
 
 class Game:
@@ -47,7 +47,7 @@ class Game:
         while running_welcome:
             for event in pygame.event.get():
                 if event.type == QUIT or event.type == KEYDOWN and event.key == K_ESCAPE:
-                    running_welcome = False
+                    exit()
                 if event.type == pygame.mouse.get_pressed():
                     running_welcome = False
                     mazeGUI.main()
