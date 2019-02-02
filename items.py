@@ -1,4 +1,3 @@
-
 """We create the items which will be positioned randomly in the maze"""
 
 

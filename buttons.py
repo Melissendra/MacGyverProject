@@ -19,34 +19,20 @@ class ClickableButton:
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
 
-    
     def is_mouse_over(self):
-        """detection if the mouse is over the button"""
-
-        # detect the position of the mouse
+        """ detect if the mouse is over the button """
         cursor = pygame.mouse.get_pos()
         if self.rect.left < cursor[0] < self.rect.right and self.rect.top < cursor[1] < self.rect.bottom:
             return True
         else:
             return False
 
-    
-    def do_mouse_over(self):
-        """colors the buttons when the mouse is over the button"""
-        over = pygame.Surface(self.rect.size)
-        over.set_alpha(60)
-        over.fill(c.BLACK)
-        self.image.blit(over, (0, 0))
-
-    # detection of the mouse's pressed
     def is_left_mouse_down(self):
-        if self.is_mouse_over() and pygame.mouse.get_pressed()[0] == 1:         # click left
+        """detection of the mouse's pressed"""
+        if self.is_mouse_over() and pygame.mouse.get_pressed()[0] == 1:
             return True
         else:
             return False
-
-    def do_left_mouse_down(self):
-        self.image.fill(c.RED)
 
     def is_clicked(self):
         """detect if the mouse button is pressed"""
@@ -58,19 +44,31 @@ class ClickableButton:
             self.has_clicked = False
         return False
 
+    def do_mouse_over(self):
+        """ colors the buttons when the mouse is over the button """
+        over = pygame.Surface(self.rect.size)
+        over.set_alpha(60)
+        over.fill(c.BLACK)
+        self.image.blit(over, (0, 0))
+
+    def do_left_mouse_down(self):
+        """ detect if we maintain the button down """
+        self.image.fill(c.RED)
+
     def do_click(self):
+        """ define what action is done when we do pressed the mouse """
         if self.action == "Play":
             mazeGUI.main()
         if self.action == "Quit":
             exit()
 
-    # draw the button on the window
     def draw(self, window):
+        """ draw the button on the window """
         self.image.blit(self.text, self.text_rect)
         window.blit(self.image, self.rect)
 
-    # check the state of the mouse and update it
     def update(self, window):
+        """ check the state of the mouse and update it """
         if self.is_mouse_over():
             self.do_mouse_over()
 

@@ -1,8 +1,11 @@
+""" We create the appearance and specificity
+    of the characters in interface mode
+"""
+
+
 import pygame
 from characters import Hero, Character
 import constants as c
-
-"""We create the appearance and specificity of the characters in interface mode"""
 
 
 class HeroGUI(Hero):
@@ -17,6 +20,9 @@ class HeroGUI(Hero):
         self.rect.topleft = (0, 0)
 
     def move(self, direction):
+        """ calling of the Hero methode to configure
+            the images for each move.
+        """
         super().move(direction)
 
         if direction == "up":

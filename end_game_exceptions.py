@@ -7,4 +7,3 @@ class HasWonGame(Exception):
 
 class HasLostGame(Exception):
     pass
-
